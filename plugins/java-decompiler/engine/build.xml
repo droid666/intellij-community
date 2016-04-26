@@ -90,13 +90,13 @@
       <include name="**/*.java"/>
       
       <!-- general problems -->
-      <!-- non-compilable: causes private field/method access
-      <exclude name="**/PrivateAccess.java"/>-->
-      <!-- non-compilable: assertion code atm can only handle the throw in the if clause, not in the else clause -->
+      <!-- non-compilable: causes private field/method access ->
+      <exclude name="**/PrivateAccess.java"/>
+      <!- non-compilable: assertion code atm can only handle the throw in the if clause, not in the else clause ->
       <exclude name="**/assertions/**/*"/>
-      <!-- overloading causes many troubles...
-      <exclude name="**/overloading/**/*"/>-->
-      <!-- non-compilable: renaming fails
+      <!- overloading causes many troubles...->
+      <exclude name="**/overloading/**/*"/>
+      <!- non-compilable: renaming fails ->
       <exclude name="**/renaming/**/*"/>-->
       
       <!-- old java versions -->
