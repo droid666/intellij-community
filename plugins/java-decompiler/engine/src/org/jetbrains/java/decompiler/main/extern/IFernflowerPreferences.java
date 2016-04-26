@@ -54,6 +54,8 @@ public interface IFernflowerPreferences {
   String INDENT_STRING = "ind";
   String BANNER = "ban";
 
+  String FIELD_DECLARATION_ORDER = "fdo";
+
   String DUMP_ORIGINAL_LINES = "__dump_original_lines__";
   String UNIT_TEST_MODE = "__unit_test_mode__";
 
@@ -98,6 +100,7 @@ public interface IFernflowerPreferences {
     defaults.put(UNIT_TEST_MODE, "0");
     defaults.put(DUMP_ORIGINAL_LINES, "0");
 
+    defaults. put(FIELD_DECLARATION_ORDER, "1");
     return Collections.unmodifiableMap(defaults);
   }
 }
