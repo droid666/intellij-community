@@ -20,6 +20,7 @@ import org.jetbrains.java.decompiler.main.extern.IIdentifierRenamer;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public class ConverterHelper implements IIdentifierRenamer {
 
@@ -34,15 +35,14 @@ public class ConverterHelper implements IIdentifierRenamer {
     "lpt1", "lpt2", "lpt3", "lpt4", "lpt5", "lpt6", "lpt7", "lpt8", "lpt9"));
 
   private int classCounter = 0;
-  private int fieldCounter = 0;
-  private int methodCounter = 0;
   private final Set<String> setNonStandardClassNames = new HashSet<String>();
+  private Pattern niceCharsPattern = Pattern.compile("[<>$a-zA-Z0-9_]+");
 
   @Override
   public boolean toBeRenamed(Type elementType, String className, String element, String descriptor) {
     String value = elementType == Type.ELEMENT_CLASS ? className : element;
     return value == null || value.length() == 0 || value.length() <= 2 || KEYWORDS.contains(value) || Character.isDigit(value.charAt(0))
-      || elementType == Type.ELEMENT_CLASS && RESERVED_WINDOWS_NAMESPACE.contains(value.toLowerCase());
+      || elementType == Type.ELEMENT_CLASS && RESERVED_WINDOWS_NAMESPACE.contains(value.toLowerCase()) || !niceCharsPattern.matcher(value).matches();
   }
 
   // TODO: consider possible conflicts with not renamed classes, fields and methods!
@@ -77,14 +77,32 @@ public class ConverterHelper implements IIdentifierRenamer {
 
   @Override
   public String getNextFieldName(String className, String field, String descriptor) {
-    return "field_" + (fieldCounter++);
+    return "field_" + getLegalString(field);
   }
 
   @Override
   public String getNextMethodName(String className, String method, String descriptor) {
-    return "method_" + (methodCounter++);
+    return "method_" + getLegalString(method);
   }
 
+  private String getLegalString(String s) {
+    StringBuilder res = new StringBuilder();
+    for (int i = 0; i < s.length(); i++) {
+      String c = s.substring(i, i + 1);
+      if (!niceCharsPattern.matcher(c).matches()) {
+        //multi byte chars?
+        byte[] bs = c.getBytes();
+        for (byte b: bs) {
+          res.append((int) b);
+        }
+      }
+      else {
+        res.append(c);
+      }
+    }
+    return res.toString();
+  }
+  
   // *****************************************************************************
   // static methods
   // *****************************************************************************
