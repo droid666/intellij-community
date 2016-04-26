@@ -90,14 +90,14 @@
       <include name="**/*.java"/>
       
       <!-- general problems -->
-      <!-- non-compilable: causes private field/method access -->
-      <exclude name="**/PrivateAccess.java"/>
+      <!-- non-compilable: causes private field/method access
+      <exclude name="**/PrivateAccess.java"/>-->
       <!-- non-compilable: assertion code atm can only handle the throw in the if clause, not in the else clause -->
       <exclude name="**/assertions/**/*"/>
-      <!-- overloading causes many troubles... -->
-      <exclude name="**/overloading/**/*"/>
-      <!-- non-compilable: renaming fails -->
-      <exclude name="**/renaming/**/*"/>
+      <!-- overloading causes many troubles...
+      <exclude name="**/overloading/**/*"/>-->
+      <!-- non-compilable: renaming fails
+      <exclude name="**/renaming/**/*"/>-->
       
       <!-- old java versions -->
       <!-- non-compilable: (.class field trouble with assert) (remove filter on assertions above too) -->

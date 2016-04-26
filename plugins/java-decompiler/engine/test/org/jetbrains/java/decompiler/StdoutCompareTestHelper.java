@@ -45,8 +45,8 @@ public class StdoutCompareTestHelper {
     params.add(IFernflowerPreferences.RENAME_ENTITIES);
     params.add("1");
 
-    //params.add(IFernflowerPreferences.DECOMPILE_ASSERTIONS);
-    //params.add("0");
+    params.add(IFernflowerPreferences.OVERLOADING_SAFETY_CASTS);
+    params.add("1");
     
     DecompilerTestFixture fixture;
     fixture = new DecompilerTestFixture();
